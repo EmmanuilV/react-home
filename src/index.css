@@ -1,0 +1,145 @@
+* {
+  margin: 0;
+  padding: 0;
+
+}
+
+
+html{
+    min-height: 100%;
+    height: auto;
+
+    background-image: linear-gradient(to right top,#F5E9E9,#a5b1cf);
+    background-repeat: no-repeat;
+    background-size: cover;
+    user-select: none;
+    display: flex;
+
+    justify-content: center;
+  }
+
+.todo_list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: space-evenly;
+  width: 600px;
+}
+
+.tasks {
+  width: 320px;
+  height: 500px;
+  overflow-y: scroll;
+  padding-right: 15px;
+  overflow-y: visible;
+  overflow-x: hidden;
+}
+
+h2 {
+  text-align: center;
+}
+
+section {
+  flex-direction: column;
+  margin-top: 15px;
+  padding: 5px;
+  width: 290px;
+  min-height: 80px;
+  display: flex;
+  background: darkgray;
+  justify-content: center;
+  border-radius: 20px;
+  box-shadow: 7px 5px 5px #032069;
+}
+
+section h3 {
+  margin-left: 16px;
+}
+.task-complete{
+  text-decoration: line-through;
+  color: gray;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  width: 250px;
+  margin-top: -15px;
+}
+
+.info {
+  display: inline;
+  margin-left: 30px;
+  width: 300px;
+}
+section button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 14px;
+  height: 14px;
+  margin-left: 275px;
+  background-color: rgba(211, 28, 28, 0.514);
+  border: 1px solid black;
+  border-radius: 4px;
+}
+
+.over-due-date {
+  color: red;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  padding: 6px;
+  margin-left: 195px;
+  width: 290px;
+}
+form input, button {
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+aside {
+  text-align: center;
+  margin-right: 50px;
+}
+
+aside .view-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+aside .view-buttons button{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+aside .view-buttons .all-task {
+  margin-right: 10px;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 50px;
+}
+
+.dashboard button {
+  margin-top: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: medium;
+  font-weight: 600;
+}
+
+.dashboard button:focus {
+  outline: none;
+}
