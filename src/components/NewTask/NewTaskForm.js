@@ -36,7 +36,7 @@ function NewTaskForm(props) {
         })
           .then(response => response.json())
           .then((createdTask) => setTodoList([...todoList, createdTask]));
-          form.reset('');
+        form.reset('');
       }
 
     const createdTask = () => {

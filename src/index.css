@@ -131,7 +131,7 @@ aside .view-buttons .all-task {
   margin-top: 50px;
 }
 
-.dashboard button {
+.task-filter {
   margin-top: 10px;
   background: none;
   border: none;
@@ -143,3 +143,4 @@ aside .view-buttons .all-task {
 .dashboard button:focus {
   outline: none;
 }
+
