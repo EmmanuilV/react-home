@@ -1,27 +1,29 @@
-import React from 'react'
+import React, { useParams } from 'react'
 import Task from './Task';
 
 function getTitle(props)
 {
-    return "Today Tasks";
+     return props.selectedList.title;
 }
 
-function getFilter(props, task)
+function getFilter(id, task)
 {
-    const now = new Date(new Date());
-    const date = new Date(task.dueDate);      
-    return date.getDate() == now.getDate();
+     return task.todoListId === id;
 }
 
-const TodayTaskPage = (props) => {
+const TodoListPage = (props) => {
+    
+    let { id } = useParams();
+
     {
-        console.log("TodayTaskPage run")
+        console.log("id:" + id)
     }
+
     return (
         <div className="main">
             <h2>{getTitle(props)}</h2>
             <div className='tasks'>
-                {props.todoList.filter(t => getFilter(props, t)).map((t, i) => <Task
+                {props.todoList.filter(t => getFilter(id, t)).map((t, i) => <Task
                     key={i}
                     todoItem={t}
                     taskLists={props.taskLists}
@@ -38,4 +40,4 @@ const TodayTaskPage = (props) => {
     )
 }
 
-export default TodayTaskPage;
+export default TodoListPage;

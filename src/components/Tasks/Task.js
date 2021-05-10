@@ -1,24 +1,12 @@
-import React from 'react'
+import React, { useState }from 'react'
 
 
 const Task = (props) => {
     const todoItem = props.todoItem
-    const deleteItem = props.deleteItem
-    const onChange = props.onChange
-
-
-    function checkDueDate(dueDate) {
-        const now = new Date(new Date().toDateString().split('T'));
-        const date = new Date(dueDate);
-        if (date < now) {
-            return {className : "over-due-date"}
-        }
-    }
-
 
     function clickFilter(listId) {
         props.taskLists.forEach(list => {
-            if (list.todoListId == listId) {                
+            if (list.todoListId === listId) {                
                 props.onSelect(list);
                 props.setTodayOnly(false);
                 props.setUncompleted(false);
@@ -63,22 +51,35 @@ const Task = (props) => {
         .then(() => props.setTodoList([...props.todoList.filter(item => item.todoItemId !== itemId)]));    
     }
 
+    const [task, setTask] = useState([])
     function change() {
         const task = {
             ...todoItem,
             done: !todoItem.done
         }
-        onChange(task)
-        console.log(todoItem)
+        console.log(task)
+        // onChange(task)
+        fetch(`${props.endpoint}${props.currentListId}/todoItem/${todoItem.todoItemId}`, {
+            method: 'PATCH',
+            headers:  {
+                'Content-Type': 'application/json-patch+json'
+            },
+            body: JSON.stringify([{ op : "replace", path : "/done", value : task.done }])
+        })
+        .then(() => setTask(task));
+        const newTaskList = props.todoList.slice();
+        const index = newTaskList.findIndex(item => item.todoItemId === task.todoItemId)
+        newTaskList.splice(index, 1, task)
+        props.setTodoList(newTaskList) 
+        
     }
-
-
 
     return (
         <section >
             <button onClick={() => deleteTask(todoItem.todoItemId)}>x</button>
             <div className="title">
-                <input type="checkbox" checked={todoItem.done} onChange={() => change} />
+                <input type="checkbox" checked={todoItem.done} onChange={change} />
+                {/* <input type="checkbox" onClick={() => change} /> */}
                 <h3 className={todoItem.done ? "task-complete" : ''}>{todoItem.title}</h3>
             </div>
             <div className="info">

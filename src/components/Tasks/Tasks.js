@@ -15,22 +15,25 @@ function getTitle(props)
      return props.selectedList.title;
 }
 
-function getFilter(props, t)
+function getFilter(props, task)
 {
     if (props.todayOnly)
     {
         const now = new Date(new Date());
-        const date = new Date(t.dueDate);      
+        const date = new Date(task.dueDate);      
         return date.getDate() == now.getDate();
      }
      else if (props.uncompleted)
      {
+         if (task.done) {
+            return false;
+         }
          const now = new Date(new Date());
-         const date = new Date(t.dueDate);      
+         const date = new Date(task.dueDate);      
          return date.getTime() <= now.getTime();
       }
      
-     return t.todoListId === props.selectedList.todoListId;
+     return task.todoListId === props.selectedList.todoListId;
 }
 
 const Tasks = (props) => {

@@ -144,3 +144,10 @@ aside .view-buttons .all-task {
   outline: none;
 }
 
+h3:hover {
+  cursor: pointer;
+}
+
+h3 {
+  margin: 3px;
+}
