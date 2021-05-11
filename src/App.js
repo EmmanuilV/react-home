@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, Link }  from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link, BrowserRouter }  from 'react-router-dom'
 import Tasks from './components/Tasks/Tasks';
 import NewTaskForm from './components/NewTask/NewTaskForm';
 import Dashboard from './components/SideBar/Dashboard';
@@ -27,8 +27,23 @@ function App() {
   }, [])
 
   return (
-    <Router>
-      <div className="todo_list">
+  //   <div className="App">
+  //   <Router>
+  //     <Dashboard  />
+  //     <div className='tasks'>
+  //       <Switch>
+  //         <Route path="/todo-lists/:id">
+  //           <TodoListPage />
+  //         </Route>
+  //         <Route path="/today">
+  //           <TodayTaskPage taskLists={lists}/>
+  //         </Route>
+  //       </Switch>
+  //     </div>
+  //   </Router>
+  // </div >
+  <div className="todo_list">
+    <BrowserRouter>
       <Dashboard 
         endpoint={tasksEndpoint} 
         onSelect={setSelectedList} 
@@ -39,23 +54,23 @@ function App() {
         taskLists={taskLists}
         setCurrentListId={setCurrentListId}
       />
-      <aside>
+      {/* <aside>
         <h2>TodoList</h2>
         <div className="dashboard">
               {
-                  taskLists.map((l, i) => (
-                  <h3 key={i}>
-                      <Link to={`/todo-list/${l.todoListId}`}>{l.title}</Link>
-                  </h3>
-                  ))
+                taskLists.map((l, i) => (
+                <h3 key={i}>
+                    <Link to={`/todo-list/${l.todoListId}`}>{l.title}</Link>
+                </h3>
+                ))
               }
               <h3>
                   <Link to={`/today`}>Today Tasks</Link>
               </h3>
           </div>
-        </aside>
-        <Switch>
-            <Route path='/todo-list/:id' exact component={TodoListPage}>
+        </aside> */}
+        <div>
+            <Route path='/todo-list/:id'>
               <TodoListPage 
                 todoList={todoList} 
                 setTodoList={setTodoList}
@@ -70,7 +85,7 @@ function App() {
                 currentListId={currentListId}
               />
             </Route>
-            <Route path='/today' exact component={TodayTaskPage}>
+            <Route path='/today' >
               <TodayTaskPage 
                 todoList={todoList} 
                 setTodoList={setTodoList}
@@ -84,16 +99,17 @@ function App() {
                 endpoint={tasksEndpoint} 
                 currentListId={currentListId}
               />
+
             </Route>
-          </Switch>
+          </div>
           <NewTaskForm 
                 endpoint={tasksEndpoint} 
                 todoList={todoList} 
                 setTodoList={setTodoList} 
                 selectedId={currentListId}
               />
-      </div>
-    </Router>
+    </BrowserRouter>
+    </div>
 
 );
 }

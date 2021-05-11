@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter as Link }  from 'react-router-dom'
+import { BrowserRouter as Link, NavLink }  from 'react-router-dom'
 
 const Dashboard = (props) => {
     const [taskLists, setTaskLists] = useState([])
@@ -26,6 +26,25 @@ const Dashboard = (props) => {
     if (testVersion == 1)
     {
         return (
+            // <nav>
+            //         <ul>
+            //             {
+            //                 lists.map(
+            //                     taskList => (
+            //                         <li key={taskList.id}>
+            //                             <NavLink activeClassName="activ-link" to={`/todo-lists/${taskList.id}`}>
+            //                                 {taskList.name}
+            //                                 <span>({openedTask[taskList.id]})</span>
+            //                             </NavLink>  
+            //                         </li>
+            //                     )
+            //                 )
+            //             }
+            //             <li>
+            //                 <NavLink to="/today" activeClassName="activ-link">TodayTaskPage</NavLink>
+            //             </li>
+            //         </ul>
+            //     </nav>
             <aside>
                 <h1>TodoList</h1>
                 <div className="dashboard">
@@ -33,10 +52,23 @@ const Dashboard = (props) => {
                         props.setTaskLists(taskLists)
                     }
                     {
-                    taskLists.map((l, i) => <button className="task-filter" key={i} onClick={() => clickFilter(l)}>{l.title}</button>)
+                        <ul>
+                            {
+                                taskLists.map(list => ( 
+                                    <li key={list.todoListId}>
+                                        <NavLink activeClassName="task-filter" to={`/todo-lists/${list.todoListId}`}  onClick={() => clickFilter(list)}>
+                                            {list.title}
+                                        </NavLink>
+                                    </li>
+                                    )
+                                )
+                            }
+                            <li>
+                                <NavLink to="/today" activeClassName="activ-link">TodayTaskPage</NavLink>
+                            </li>
+                            
+                        </ul>
                     }
-                    <button className="task-filter" onClick={() => props.setTodayOnly(true)}>Today Tasks</button>
-                    <button className="task-filter" onClick={() => uncompletedFilter()}>Uncompleted Tasks</button>
                 </div>
 
             </aside>
