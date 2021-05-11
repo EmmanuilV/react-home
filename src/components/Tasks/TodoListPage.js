@@ -5,22 +5,22 @@ import Task from './Task';
 
 
 const TodoListPage = (props) => {
-    let { id } = useParams();
     
     const taskList = props.taskLists;
+    let { id } = useParams();
 
     {
         console.log("TodoListPage run, id: " + id)
-        getTitle()
         console.log('taskList: ', taskList)
     }
+
     function getTitle() {
         for (let i = 0; i < taskList.length; i++) {
             if (taskList[i].todoListId == id) {
                 console.log(taskList[i].title)
                 return taskList[i].title
             } else {
-                console.log('id :' + id)
+                console.log('id: ' + id)
                 console.log(`taskList[${i}].todolistId: ` + taskList[i].todoListId)
                 console.log(`taskList[${i}].title: ` + taskList[i].title)
             }

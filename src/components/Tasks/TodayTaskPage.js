@@ -10,9 +10,8 @@ function getFilter(task) {
 
 const TodayTaskPage = (props) => {
     const [todoList, setTodoList] = useState([]);
-    const tasksEndpoint = `http://127.0.0.1:5000/api/tasks/`
     useEffect(() => {
-        fetch(`${tasksEndpoint}`)
+        fetch('http://127.0.0.1:5000/api/tasks/collection/today')
             .then(res => res.json())
             .then(setTodoList);
     }, [])
