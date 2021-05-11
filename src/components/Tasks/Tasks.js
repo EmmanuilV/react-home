@@ -1,57 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import Task from './Task';
 
-function getTitle(props)
-{
-    if (props.todayOnly)
-    {
-        return "Today Tasks";
-    }
-    else if (props.uncompleted)
-    {      
-        return "Uncompleted Tasks";
-    }
-     
-     return props.selectedList.title;
-}
 
-function getFilter(props, task)
-{
-    if (props.todayOnly)
-    {
-        const now = new Date(new Date());
-        const date = new Date(task.dueDate);      
-        return date.getDate() == now.getDate();
-     }
-     else if (props.uncompleted)
-     {
-         if (task.done) {
-            return false;
-         }
-         const now = new Date(new Date());
-         const date = new Date(task.dueDate);      
-         return date.getTime() <= now.getTime();
-      }
-     
-     return task.todoListId === props.selectedList.todoListId;
+
+function getFilter(props, task) {
+    if (task.done) {
+        return false;
+    }
+    const now = new Date(new Date());
+    const date = new Date(task.dueDate);
+    return date.getTime() <= now.getTime();
 }
 
 const Tasks = (props) => {
+    const [todoList, setTodoList] = useState([]);
+    const tasksEndpoint = `http://127.0.0.1:5000/api/tasks/`
+    useEffect(() => {
+        fetch(`${tasksEndpoint}`)
+            .then(res => res.json())
+            .then(setTodoList);
+    }, [])
+    console.log(todoList)
     return (
         <div className="main">
-            <h2>{getTitle(props)}</h2>
+            <h2>{"Uncompleted Tasks"}</h2>
             <div className='tasks'>
-                {props.todoList.filter(t => getFilter(props, t)).map((t, i) => <Task
+                {todoList.filter(t => getFilter(props, t)).map((t, i) => <Task
                     key={i}
                     todoItem={t}
                     taskLists={props.taskLists}
-                    onSelect={props.onSelect} 
-                    setTodayOnly={props.setTodayOnly} 
-                    setUncompleted={props.setUncompleted} 
-                    setTodoList={props.setTodoList} 
-                    endpoint={props.endpoint}
-                    todoList={props.todoList} 
-                    currentListId={props.currentListId} 
+                    setTodoList={setTodoList}
+                    todoList={todoList}
                 />)}
             </div>
         </div>

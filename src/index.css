@@ -1,22 +1,19 @@
 * {
   margin: 0;
   padding: 0;
-
+  color: #222;
 }
 
-
-html{
-    min-height: 100%;
-    height: auto;
-
-    background-image: linear-gradient(to right top,#F5E9E9,#a5b1cf);
-    background-repeat: no-repeat;
-    background-size: cover;
-    user-select: none;
-    display: flex;
-
-    justify-content: center;
-  }
+html {
+  min-height: 100%;
+  height: auto;
+  background-image: linear-gradient(to right top, #F5E9E9, #a5b1cf);
+  background-repeat: no-repeat;
+  background-size: cover;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+}
 
 .todo_list {
   display: flex;
@@ -57,7 +54,8 @@ section {
 section h3 {
   margin-left: 16px;
 }
-.task-complete{
+
+.task-complete {
   text-decoration: line-through;
   color: gray;
 }
@@ -74,6 +72,7 @@ section h3 {
   margin-left: 30px;
   width: 300px;
 }
+
 section button {
   display: flex;
   justify-content: center;
@@ -95,9 +94,9 @@ form {
   flex-direction: column;
   margin-top: 20px;
   padding: 6px;
-  margin-left: 195px;
   width: 290px;
 }
+
 form input, button {
   line-height: 20px;
   margin-bottom: 4px;
@@ -108,20 +107,23 @@ aside {
   margin-right: 50px;
 }
 
-aside .view-buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-aside .view-buttons button{
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-  cursor: pointer;
+aside li {
+  margin: 3px;
+  color: #333;
 }
 
-aside .view-buttons .all-task {
-  margin-right: 10px;
+.task-filter {
+  text-decoration: none;
+  color: rgb(46, 57, 212);
+}
+
+.active-link {
+  text-decoration: none;
+}
+
+.link {
+  color: rgba(109, 92, 92, 0.932);
+  text-decoration: underline;
 }
 
 .dashboard {

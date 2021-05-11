@@ -1,21 +1,11 @@
-import React, { useState }from 'react'
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom'
 
 
 const Task = (props) => {
     const todoItem = props.todoItem
-
-    function clickFilter(listId) {
-        props.taskLists.forEach(list => {
-            if (list.todoListId === listId) {                
-                props.onSelect(list);
-                props.setTodayOnly(false);
-                props.setUncompleted(false);
-            }
-        });
-    }
-    
+    const tasksEndpoint = `http://127.0.0.1:5000/api/tasks/`
     function buildDate(dueDate) {
-        console.log(dueDate)
         if (dueDate === null || dueDate === undefined || dueDate === '') {
             return ''
         } else {
@@ -23,16 +13,14 @@ const Task = (props) => {
             return date[0]
         }
     }
-    
+
     function GetGroupName(listId, taskLists) {
         let title = '';
         for (let i = 0; i < taskLists.length; i++) {
-           console.log(taskLists[i].todoListId === listId)
-        if (taskLists[i].todoListId === listId) {
-            console.log(taskLists[i].title)
-            title += taskLists[i].title;
-        } 
-       }
+            if (taskLists[i].todoListId === listId) {
+                title += taskLists[i].title;
+            }
+        }
 
         return title
     }
@@ -44,11 +32,10 @@ const Task = (props) => {
     }
 
     function deleteTask(itemId) {
-        return fetch(`${props.endpoint}${props.currentListId}/${itemId}`, {
+        return fetch(`${tasksEndpoint}${props.currentListId}/${itemId}`, {
             method: 'DELETE',
         })
-        // .then(response => response.ok ? target.parentElement.remove() : alert(response.statusText));
-        .then(() => props.setTodoList([...props.todoList.filter(item => item.todoItemId !== itemId)]));    
+            .then(() => props.setTodoList([...props.todoList.filter(item => item.todoItemId !== itemId)]));
     }
 
     const [task, setTask] = useState([])
@@ -57,21 +44,20 @@ const Task = (props) => {
             ...todoItem,
             done: !todoItem.done
         }
-        console.log(task)
-        // onChange(task)
-        fetch(`${props.endpoint}${props.currentListId}/todoItem/${todoItem.todoItemId}`, {
+        console.log(todoItem.todoItemId)
+        fetch(`${tasksEndpoint}${props.currentListId}/todoItem/${todoItem.todoItemId}`, {
             method: 'PATCH',
-            headers:  {
+            headers: {
                 'Content-Type': 'application/json-patch+json'
             },
-            body: JSON.stringify([{ op : "replace", path : "/done", value : task.done }])
+            body: JSON.stringify([{ op: "replace", path: "/done", value: task.done }])
         })
-        .then(() => setTask(task));
+            .then(() => setTask(task));
         const newTaskList = props.todoList.slice();
         const index = newTaskList.findIndex(item => item.todoItemId === task.todoItemId)
         newTaskList.splice(index, 1, task)
-        props.setTodoList(newTaskList) 
-        
+        props.setTodoList(newTaskList)
+
     }
 
     return (
@@ -79,14 +65,15 @@ const Task = (props) => {
             <button onClick={() => deleteTask(todoItem.todoItemId)}>x</button>
             <div className="title">
                 <input type="checkbox" checked={todoItem.done} onChange={change} />
-                {/* <input type="checkbox" onClick={() => change} /> */}
                 <h3 className={todoItem.done ? "task-complete" : ''}>{todoItem.title}</h3>
             </div>
             <div className="info">
-                <p>{todoItem.description !== '' ?  todoItem.description : ''}</p>
+                <p>{todoItem.description !== '' ? todoItem.description : ''}</p>
                 <p className={checkDueDate(todoItem.dueDate) ? "over-due-date" : ''}>{buildDate(todoItem.dueDate)}</p>
             </div>
-            <a className="task-filter" onClick={() => clickFilter(todoItem.todoListId)}>{GetGroupName(todoItem.todoListId, props.taskLists)}</a>
+            <NavLink className='link' activeClassName="task-filter" to={`/todo-list/${props.currentListId}`}>
+                {GetGroupName(todoItem.todoListId, props.taskLists)}
+            </NavLink>
         </section>
     )
 }
