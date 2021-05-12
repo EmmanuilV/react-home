@@ -26,8 +26,8 @@ const TodayTaskPage = (props) => {
         <div className="main">
             <h2>{"Today Tasks"}</h2>
             <div className='tasks'>
-                {newTasksList.filter(t => getFilter(t)).map((t, i) => <Task
-                    key={i}
+                {newTasksList.filter(t => getFilter(t)).map(t => <Task
+                    key={t.todoitemId}
                     todoItem={t}
                     taskLists={props.taskLists}
                     currentListId={t.todoListId}

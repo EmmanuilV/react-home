@@ -41,8 +41,8 @@ const TodoListPage = (props) => {
             <h2>{ getTitle()}</h2>
             <div className='tasks'>
                 {console.log(todoList)}
-                {todoList.map((t, i) => <Task
-                    key={i}
+                {todoList.map(t => <Task
+                    key={t.todoItemId}
                     todoItem={t}
                     taskLists={props.taskLists}
                     setTodoList={setTodoList}

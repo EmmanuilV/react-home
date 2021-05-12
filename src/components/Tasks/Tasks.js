@@ -25,8 +25,8 @@ const Tasks = (props) => {
         <div className="main">
             <h2>{"Uncompleted Tasks"}</h2>
             <div className='tasks'>
-                {todoList.filter(t => getFilter(props, t)).map((t, i) => <Task
-                    key={i}
+                {todoList.filter(t => getFilter(props, t)).map(t => <Task
+                    key={t.todoitemId}
                     todoItem={t}
                     taskLists={props.taskLists}
                     setTodoList={setTodoList}
