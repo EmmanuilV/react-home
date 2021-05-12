@@ -72,7 +72,7 @@ const Task = (props) => {
                 <p className={checkDueDate(todoItem.dueDate) ? "over-due-date" : ''}>{buildDate(todoItem.dueDate)}</p>
             </div>
             <NavLink className='link' activeClassName="task-filter" to={`/todo-list/${props.currentListId}`}>
-                {GetGroupName(todoItem.todoListId, props.taskLists)}
+                {GetGroupName(todoItem.todoListId, props.taskLists)}{/* get props.title */}
             </NavLink>
         </section>
     )

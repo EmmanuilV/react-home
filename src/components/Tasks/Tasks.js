@@ -30,6 +30,7 @@ const Tasks = (props) => {
                     todoItem={t}
                     taskLists={props.taskLists}
                     setTodoList={setTodoList}
+                    currentListId={t.todoListId}
                     todoList={todoList}
                 />)}
             </div>
